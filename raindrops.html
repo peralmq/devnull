@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="400" height="400" style="border:1px solid #c3c3c3;" onclick="handleClick()">
+Your browser does not support the canvas element.
+</canvas>
+
+<script type="text/javascript">
+    
+       var circles = [];
+    
+    function handleClick(event){
+        event = event || window.event;
+        var canvas = document.getElementById('myCanvas');
+        var x = event.pageX - canvas.offsetLeft;
+        var y = event.pageY - canvas.offsetTop;   
+        addCircle(x, y);
+    }
+    
+    function addCircle(x, y) {
+        var circle = {};
+        circle.x = x;
+        circle.y = y;
+        circle.rad = 0;        
+        circles.push(circle);
+    }
+    
+    function cmp(c1, c2) {
+        return c1.x == c2.x && c1.y == c2.y && c1.rad == c2.rad;
+    }
+    
+    function removeCircle(circle) {
+        for(var i=0;i<circles.length; i++){
+            if(cmp(circles[i],circle)){
+                circles.remove(i);
+                return;        
+            }    
+        }
+    }
+    
+    function drawCircle() {
+    
+        var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        ctx.clearRect(0,0,400,400); // clear canvas  
+        for(var i=0; i<circles.length; i++) {
+            var circle = circles[i];
+             if (circle.rad > 500) {
+    // We don't remove circles yet as it will crash sooner or later.
+    //                removeCircle(circle);
+             }
+            else{
+                circle.rad = circle.rad + 3;
+                ctx.fillStyle="#FF0000";
+                ctx.beginPath();
+                ctx.arc(circle.x, circle.y, circle.rad,0,Math.PI*2,false);   
+                ctx.closePath();
+                ctx.stroke();
+
+            }
+        }    
+    }
+
+    
+  setInterval(drawCircle,50);
+
+    
+</script>
+
+</body>
+</html>
