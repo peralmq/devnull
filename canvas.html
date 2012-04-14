@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="400" height="400" style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+
+<script type="text/javascript">
+    
+    var x=50;
+    var y=50;
+    var rad=35;
+    var isGoingRight = 1;
+    
+    function drawCircle() {
+    
+    if(x > 365)
+    isGoingRight = 0;
+    else if(x < 35)
+    isGoingRight = 1;
+    
+    if(isGoingRight)
+    x = x + 3;
+else
+ x = x - 3;   
+    
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.clearRect(0,0,400,400); // clear canvas  
+    ctx.fillStyle="#FF0000";
+    ctx.beginPath();
+    ctx.arc(x,y,rad,0,Math.PI*2,true);
+    ctx.arc(x,y+100,rad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    }
+
+  setInterval(drawCircle,50); 
+    
+</script>
+
+</body>
+</html>
+
+​
