@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Websocket test</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+function openIt() {
+	window.location = "http://open.spotify.com/track/77NNZQSqzLNqh2A9JhLRkg";
+}
+
+function WebSocketTest()
+{
+  if ("WebSocket" in window)
+  {
+     alert("WebSocket is supported by your Browser!");
+     // Let us open a web socket
+     var ws = new WebSocket("ws://localhost:8081");
+     ws.onopen = function()
+     {
+        // Web Socket is connected, send data using send()
+        ws.send("Hello server");
+//        alert("Message is sent...");
+     };
+     ws.onmessage = function (evt) 
+     { 
+        var received_msg = evt.data;
+//        alert("Message received: " + received_msg);
+        openIt();
+     };
+     ws.onclose = function()
+     { 
+        // websocket is closed.
+        alert("Connection is closed..."); 
+     };
+  }
+  else
+  {
+     // The browser doesn't support WebSocket
+     alert("WebSocket NOT supported by your Browser!");
+  }
+}
+</script>
+</head>
+<body>
+<div>
+   <a href="javascript:WebSocketTest()">Tell server to tell me to play epic music!</a>
+</div>
+</body>
+</html>
